@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+import random
+import numpy as np
+
+
+def PassGen(amount, count, special, name, is_file):
+
+    simb = np.array(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
+                     "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
+                     "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g",
+                     "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
+                     "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3",
+                     "4", "5", "6", "7", "8", "9", "0"
+                     ])
+
+    s_simb = np.array(["!", "@", "№", "#", "$", "%", "^",
+                       "&", "*", "_", "-", "=", "+", "-", "/", "|"])
+
+    true = ["y", "1", "true", "True", " "]
+
+    if special in true:
+        us_alph = np.append(simb, s_simb)
+
+    else:
+        us_alph = simb
+
+    lst = ""
+    password = ""
+
+    for i in range(amount):
+        password = ""
+        for j in range(count):
+            password += us_alph[random.randint(0, len(us_alph)-1)]
+        lst += password + "\n"
+    if is_file == "True":
+        file = open(name+".txt", "w")
+        file.write(lst)
+    print(lst)
+
+
+if __name__ == "__main__":
+    amount_ = 8
+    count_ = 10
+    special_ = "True"
+    name_ = "pass"
+    file_ = "False"
+    for i in range(len(sys.argv)):
+        if sys.argv[i] == "-h" or sys.argv[i] == "--help":
+            print("""
+-a or --amount  : number of characters in the password (int)
+-c or --count   : amount passwords (int)
+-s or --special : use or not use special characters (y 1 true True or other)
+-n or --name    : output file name (str)
+-f or --file    : create a text file or not (does not require parameters)
+
+            """)
+            sys.exit(0)
+        elif sys.argv[i] == "-a" or sys.argv[i] == "--amount":
+            leng = int(sys.argv[i+1])
+
+        elif sys.argv[i] == "-c" or sys.argv[i] == "--count":
+            col = int(sys.argv[i+1])
+
+        elif sys.argv[i] == "-s" or sys.argv[i] == "--special":
+            sp = sys.argv[i+1]
+
+        elif sys.argv[i] == "-n" or sys.argv[i] == "--name":
+            n = sys.argv[i+1]
+        elif sys.argv[i] == "-f" or sys.argv[i] == "--file":
+            file_ = "True"
+
+    PassGen(amount_, count_, special_, name_, file_)
