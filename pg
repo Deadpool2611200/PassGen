@@ -29,9 +29,9 @@ def PassGen(amount, count, special, name, is_file):
     lst = ""
     password = ""
 
-    for i in range(amount):
+    for i in range(count):
         password = ""
-        for j in range(count):
+        for j in range(amount):
             password += us_alph[random.randint(0, len(us_alph)-1)]
         lst += password + "\n"
     if is_file == "True":
