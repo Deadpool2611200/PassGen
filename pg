@@ -38,6 +38,7 @@ def PassGen(amount, count, special, name, is_file):
     if is_file == "True":
         file = open(name+".txt", "w")
         file.write(lst)
+    print()
     print(lst)
 
 
@@ -50,13 +51,11 @@ if __name__ == "__main__":
     for i in range(len(sys.argv)):
         if sys.argv[i] == "-h" or sys.argv[i] == "--help" or len(sys.argv) == 0:
             print("""
-
 -a or --amount  : number of characters in the password (int)
 -c or --count   : amount passwords (int)
 -s or --special : use or not use special characters (y 1 true True or other)
 -n or --name    : output file name (str)
 -f or --file    : create a text file or not (does not require parameters)
-
             """)
             sys.exit(0)
         if sys.argv[i] == "-a" or sys.argv[i] == "--amount":
@@ -72,5 +71,5 @@ if __name__ == "__main__":
             n = sys.argv[i+1]
         if sys.argv[i] == "-f" or sys.argv[i] == "--file":
             file_ = "True"
-    print()
+            
     PassGen(amount_, count_, special_, name_, file_)
