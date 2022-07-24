@@ -48,7 +48,7 @@ if __name__ == "__main__":
     name_ = "pass"
     file_ = "False"
     for i in range(len(sys.argv)):
-        if sys.argv[i] == "-h" or sys.argv[i] == "--help":
+        if sys.argv[i] == "-h" or sys.argv[i] == "--help" or len(sys.argv) == 0:
             print("""
 -a or --amount  : number of characters in the password (int)
 -c or --count   : amount passwords (int)
@@ -58,18 +58,18 @@ if __name__ == "__main__":
 
             """)
             sys.exit(0)
-        elif sys.argv[i] == "-a" or sys.argv[i] == "--amount":
+        if sys.argv[i] == "-a" or sys.argv[i] == "--amount":
             leng = int(sys.argv[i+1])
 
-        elif sys.argv[i] == "-c" or sys.argv[i] == "--count":
+        if sys.argv[i] == "-c" or sys.argv[i] == "--count":
             col = int(sys.argv[i+1])
 
-        elif sys.argv[i] == "-s" or sys.argv[i] == "--special":
+        if sys.argv[i] == "-s" or sys.argv[i] == "--special":
             sp = sys.argv[i+1]
 
-        elif sys.argv[i] == "-n" or sys.argv[i] == "--name":
+        if sys.argv[i] == "-n" or sys.argv[i] == "--name":
             n = sys.argv[i+1]
-        elif sys.argv[i] == "-f" or sys.argv[i] == "--file":
+        if sys.argv[i] == "-f" or sys.argv[i] == "--file":
             file_ = "True"
 
     PassGen(amount_, count_, special_, name_, file_)
