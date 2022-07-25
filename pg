@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import random
+import secrets
 import numpy as np
 
 
@@ -32,7 +32,7 @@ def PassGen(amount, count, special, name, is_file):
     for i in range(count):
         password = ""
         for j in range(amount):
-            password += us_alph[random.randint(0, len(us_alph)-1)]
+            password += secrets.choise(us_alph)
         lst += password + "\n"
     if is_file == "True":
         file = open(name+".txt", "w")
