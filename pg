@@ -32,7 +32,7 @@ def PassGen(amount, count, special, name, is_file):
     for i in range(count):
         password = ""
         for j in range(amount):
-            password += secrets.choise(us_alph)
+            password += secrets.choice(us_alph)
         lst += password + "\n"
     if is_file == "True":
         file = open(name+".txt", "w")
