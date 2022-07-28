@@ -58,17 +58,17 @@ if __name__ == "__main__":
             """)
             sys.exit(0)
         if sys.argv[i] == "-a" or sys.argv[i] == "--amount":
-            leng = int(sys.argv[i+1])
+            amount_ = int(sys.argv[i+1])
 
         if sys.argv[i] == "-c" or sys.argv[i] == "--count":
-            col = int(sys.argv[i+1])
+            count_ = int(sys.argv[i+1])
 
         if sys.argv[i] == "-s" or sys.argv[i] == "--special":
-            sp = sys.argv[i+1]
+            special_ = sys.argv[i+1]
 
         if sys.argv[i] == "-n" or sys.argv[i] == "--name":
-            n = sys.argv[i+1]
+            name_ = sys.argv[i+1]
         if sys.argv[i] == "-f" or sys.argv[i] == "--file":
             file_ = "True"
-            
-    PassGen(amount_, count_, special_, name_, file_)
+
+    PassGen(amount = amount_, count = count_, special = special_, name = name_, is_file = file_)
