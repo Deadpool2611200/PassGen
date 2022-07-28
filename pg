@@ -3,7 +3,6 @@
 
 from getpass import getuser
 from platform import system
-from time import sleep
 from os import mkdir, replace, getcwd
 from sys import argv
 from secrets import choice
@@ -20,8 +19,7 @@ def PassGen(amount, count, special, name, is_file):
 
         except BaseException:
 
-            mkdir("/home/" + name + "/.config/PassGen")
-            sleep(2)
+            mkdir("/home/" + user_name + "/.config/PassGen")
             replace(
                 getcwd() +
                 "/alph.json",
