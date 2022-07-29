@@ -10,7 +10,7 @@ from numpy import append
 from json import load
 
 
-def PassGen(amount, count, special, name, is_file):
+def PassGen(amount = 8, count = 10, special = True, name = pass, is_file = False):
     user_name = getuser()
     if system() == "Linux":
         try:
@@ -79,11 +79,6 @@ def PassGen(amount, count, special, name, is_file):
 
 
 if __name__ == "__main__":
-    amount_ = 8
-    count_ = 10
-    special_ = "True"
-    name_ = "pass"
-    file_ = "False"
 
     for i in range(len(argv)):
         if argv[i] == "-h" or argv[i] == "--help" or len(argv) == 0:
