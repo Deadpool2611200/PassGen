@@ -3,14 +3,26 @@
 
 from getpass import getuser
 from platform import system
-from os import mkdir, replace, getcwd
+from shutil import copyfile
+from os import mkdir, getcwd
 from sys import argv
 from secrets import choice
 from numpy import append
 from json import load
+from colorama import init, Fore, Style
 
 
-def PassGen(amount = 8, count = 10, special = True, name = pass, is_file = False):
+init()
+
+fbgreen = Fore.GREEN + Style.BRIGHT
+fbmagenta = Fore.MAGENTA + Style.BRIGHT
+fbcyan = Fore.CYAN + Style.BRIGHT
+reset_Stile = Style.RESET_ALL
+
+
+
+def PassGen(amount, count, special, name, is_file):
+    
     user_name = getuser()
     if system() == "Linux":
         try:
@@ -18,16 +30,19 @@ def PassGen(amount = 8, count = 10, special = True, name = pass, is_file = False
             js = open("/home/" + user_name + "/.config/PassGen/alph.json", "r")
 
         except BaseException:
-
-            mkdir("/home/" + user_name + "/.config/PassGen")
-            replace(
+            try:
+                mkdir("/home/" + user_name + "/.config/PassGen")
+            except BaseException:
+                pass
+            copyfile(
                 getcwd() +
                 "/alph.json",
                 "/home/" +
                 user_name +
                 "/.config/PassGen/alph.json")
+            
             print(
-                "the file alph.json has been moved to a /home/" +
+                "\n File alph.json has been moved to a /home/" +
                 user_name +
                 "/.config/PassGen/")
 
@@ -38,16 +53,20 @@ def PassGen(amount = 8, count = 10, special = True, name = pass, is_file = False
             js = open("C:/Users/" + user_name + "/PassGen/alph.json", "r")
 
         except BaseException:
+            try:
+                mkdir("C:/Users/" + user_name + "/PassGen")
 
-            mkdir("C:/Users/" + user_name + "/PassGen")
-            replace(
+            except BaseException:
+                pass
+
+            copyfile(
                 getcwd() +
                 "/alph.json",
                 "C:/Users/" +
                 user_name +
                 "/PassGen/alph.json")
             print(
-                "the file alph.json has been moved to a C:/Users/" +
+                "\n File alph.json has been moved to a C:/Users/" +
                 user_name +
                 "/PassGen/")
 
@@ -57,11 +76,15 @@ def PassGen(amount = 8, count = 10, special = True, name = pass, is_file = False
     simb = full_alph["alph"]
     s_simb = full_alph["s_alph"]
 
-    if special == "True":
+    if special:
         us_alph = append(simb, s_simb)
+        color = fbmagenta
+
 
     else:
         us_alph = simb
+        color = fbcyan
+
 
     lst = ""
     password = ""
@@ -72,23 +95,32 @@ def PassGen(amount = 8, count = 10, special = True, name = pass, is_file = False
             password += choice(us_alph)
         lst += password + "\n"
     if is_file == "True":
+
         file = open(name + ".txt", "w")
         file.write(lst)
+    else:
+        pass
     print()
-    print(lst)
+    for i in lst.split():
+        print(color + i + reset_Stile)
 
 
 if __name__ == "__main__":
-
+    
+    amount_= 8
+    count_= 10
+    special_= False
+    name_= "pass"
+    is_file_= False
+    
     for i in range(len(argv)):
         if argv[i] == "-h" or argv[i] == "--help" or len(argv) == 0:
-            print("""
--a or --amount  : number of characters in the password (int)
--c or --count   : amount passwords (int)
--s or --special : use or not use special characters (y 1 true True or other)
--n or --name    : output file name (str)
--f or --file    : create a text file or not (does not require parameters)
-            """)
+            print(fbgreen + "Parameter with " + fbmagenta + "this" + reset_Stile + fbgreen +" color does not need additional parameters.\n" + reset_Stile)
+            print(fbcyan + "-a or --amount  : Number of characters in the password (" + fbgreen +  "int" + reset_Stile + fbcyan + ").")
+            print(fbcyan + "-c or --count   : Amount passwords (" + fbgreen +  "int" + reset_Stile + fbcyan + ").")
+            print(fbmagenta + "-s or --special : Use or not use special characters." + reset_Stile)
+            print(fbcyan + "-n or --name    : Output file name (" + fbgreen +  "int" + reset_Stile + fbcyan + ").")
+            print(fbmagenta + "-f or --file    : Create a text file or not.")
             exit(0)
         if argv[i] == "-a" or argv[i] == "--amount":
             amount_ = int(argv[i + 1])
@@ -97,16 +129,16 @@ if __name__ == "__main__":
             count_ = int(argv[i + 1])
 
         if argv[i] == "-s" or argv[i] == "--special":
-            special_ = argv[i + 1]
+            special_ = True
 
         if argv[i] == "-n" or argv[i] == "--name":
             name_ = argv[i + 1]
         if argv[i] == "-f" or argv[i] == "--file":
-            file_ = "True"
+            is_file_ = "True"
 
     PassGen(
         amount=amount_,
         count=count_,
         special=special_,
         name=name_,
-        is_file=file_)
+        is_file=is_file_)
